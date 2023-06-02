@@ -1,6 +1,6 @@
 import { fetchById } from 'api/theMoviedb';
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -22,12 +22,9 @@ const MovieDetails = () => {
 
   if (!movie) return;
 
-  const { genres, production_countries } = movie;
+  const { genres } = movie;
 
   const movieGenres = genres.map(genre => genre.name).join(', ');
-  const countries = production_countries
-    .map(country => country.name)
-    .join(', ');
 
   return (
     <div>

@@ -1,9 +1,11 @@
 import { fetchTrendingMovies } from 'api/theMoviedb';
 import Gallery from 'components/Gallery/Gallery';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 // import css from './HomePage.module.css';
 
 const HomePage = () => {
+  const location = useLocation();
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -26,11 +28,7 @@ const HomePage = () => {
     <section className="">
       <h1 className="">Trending movies today</h1>
 
-      <Gallery
-        movies={movies}
-        // state={{ from: location }}
-        path={'movies/'}
-      />
+      <Gallery movies={movies} state={{ from: location }} path={'movies/'} />
     </section>
   );
 };

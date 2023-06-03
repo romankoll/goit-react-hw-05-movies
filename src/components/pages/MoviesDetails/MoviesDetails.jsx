@@ -1,10 +1,12 @@
 import { fetchById } from 'api/theMoviedb';
-import React, { useEffect, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/movies';
   const [movie, setMovie] = useState(null);
-
+  const imageBaseUrl = 'https://image.tmdb.org/t/p/w400';
   const { movieId } = useParams();
   //   console.log(movieId);
 
@@ -18,22 +20,28 @@ const MovieDetails = () => {
     };
     getMovieInfo();
   }, [movieId]);
-  console.log(movie);
+  // console.log(movie);
 
-  if (!movie) return;
+  if (!movie) {
+    return <div>Loading...</div>;
+  }
 
   const { genres } = movie;
 
   const movieGenres = genres.map(genre => genre.name).join(', ');
 
+  let posterSrc = '';
+  if (movie.poster_path) {
+    posterSrc = `${imageBaseUrl}${movie.poster_path}`;
+  }
+
   return (
     <div>
-      <button>Go back</button>
+      <Link to={backLinkHref} className="">
+        Go back
+      </Link>
       <div>
-        <img
-          src={`https://image.tmdb.org/t/p/w400/${movie.poster_path}`}
-          alt=""
-        />
+        {posterSrc && <img src={posterSrc} alt="" />}
         <h2>{movie.title}</h2>
 
         <p>User Score:{}%</p>
@@ -46,14 +54,14 @@ const MovieDetails = () => {
         <h3>Additional information</h3>
         <ul className="">
           <li>
-            <NavLink to={'cast'} className="">
+            <Link to={'cast'} className="">
               Cast
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink to={'reviews'} className="">
+            <Link to={'reviews'} className="">
               Reviews
-            </NavLink>
+            </Link>
           </li>
         </ul>
       </div>

@@ -25,3 +25,21 @@ export async function fetchById(id) {
     return res.json();
   });
 }
+
+export async function fetchReviews(id) {
+  return await fetch(`${BASE_URL}/movie/${id}/reviews?api_key=${API_KEY}`).then(
+    res => {
+      if (!res.ok) Promise.reject(new Error('Opps...something going wrong'));
+      return res.json();
+    }
+  );
+}
+
+export async function fetchCasts(id) {
+  return await fetch(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`).then(
+    res => {
+      if (!res.ok) Promise.reject(new Error('Opps...something going wrong'));
+      return res.json();
+    }
+  );
+}

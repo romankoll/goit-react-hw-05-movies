@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-// import css from './ReviewsList.module.css';
 
 export const ReviewsItem = ({ reviews }) => {
   return (

@@ -1,6 +1,9 @@
 import { fetchById } from 'api/theMoviedb';
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import Loader from 'components/Loader/Loader';
+import React, { Suspense, useEffect, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+
+import css from './MoviesDetails.module.css';
 
 const MovieDetails = () => {
   const location = useLocation();
@@ -8,6 +11,7 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const imageBaseUrl = 'https://image.tmdb.org/t/p/w400';
   const { movieId } = useParams();
+
   //   console.log(movieId);
 
   useEffect(() => {
@@ -35,16 +39,22 @@ const MovieDetails = () => {
     posterSrc = `${imageBaseUrl}${movie.poster_path}`;
   }
 
+  const rating = Math.round(movie.vote_average * 10) / 10;
+
   return (
-    <div>
-      <Link to={backLinkHref} className="">
+    <div className={css.container}>
+      <Link to={backLinkHref} className={css.btnBack}>
         Go back
       </Link>
       <div>
-        {posterSrc && <img src={posterSrc} alt="" />}
+        {posterSrc && (
+          <div className={css.imageContainer}>
+            <img src={posterSrc} alt="" className="posterImage" />
+          </div>
+        )}
         <h2>{movie.title}</h2>
 
-        <p>User Score:{}%</p>
+        <p>User Score: {rating}</p>
         <h3>Overview</h3>
         <p>{movie.overview}</p>
         <h3>Genres</h3>
@@ -64,6 +74,9 @@ const MovieDetails = () => {
             </Link>
           </li>
         </ul>
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   );

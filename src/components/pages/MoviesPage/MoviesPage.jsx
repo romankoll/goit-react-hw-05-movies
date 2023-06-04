@@ -2,6 +2,7 @@ import { fetchByQuery } from 'api/theMoviedb';
 import Gallery from 'components/Gallery/Gallery';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import css from './MoviesPage.module.css';
 
 const MoviesPage = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -31,17 +32,17 @@ const MoviesPage = () => {
   };
 
   return (
-    <div>
+    <div className={css.container}>
       <h1>Search movies</h1>
-      <form onSubmit={handleSubmit} className="">
+      <form onSubmit={handleSubmit} className={css.form}>
         <input
           type="text"
           name="query"
           placeholder="Type what you want to find here"
-          className=""
+          className={css.input}
         />
 
-        <button type="submit" className="">
+        <button type="submit" className={css.btn}>
           Search
         </button>
       </form>

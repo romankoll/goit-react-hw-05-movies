@@ -1,0 +1,22 @@
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.navbarNav {
+  display: flex;
+  gap: 20px;
+}
+
+.navLink {
+  color: #000;
+  text-decoration: none;
+}
+
+.navLink:hover,
+.navLink:focus {
+  color: #f00;
+  text-decoration: underline;
+}

@@ -7,7 +7,7 @@ import MovieDetails from './pages/MoviesDetails/MoviesDetails';
 import MoviesPage from './pages/MoviesPage/MoviesPage';
 import Reviews from './Reviews/Reviews';
 
-export const App = () => {
+const App = () => {
   return (
     <div>
       <Routes>
@@ -23,3 +23,5 @@ export const App = () => {
     </div>
   );
 };
+
+export default App;
